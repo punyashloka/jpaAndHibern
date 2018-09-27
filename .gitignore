@@ -1,3 +1,43 @@
-.class
+# Global Rules
+
+# Eclipse
+.metadata/
+.settings
+bin/
+
+# Maven
+target/
+
+# Ant
+build/
+
+# Windows
+Thumbs.db
+
+# OSX
+.DS_Store
+
+# /
+.vagrant/
+C:
+*.lock
+
+#----------------------------------------------------------------
+#----------------------------------------------------------------
+#----------------------------------------------------------------
+# sub directory ignores should be placed in those subdirectories
+# with their own .gitignore
+#----------------------------------------------------------------
+#----------------------------------------------------------------
+#----------------------------------------------------------------
+*.class
+*.log
+*.log.*
+jboss-insight
+
+
+
+#Flyway
+flyway/.classpath
+flyway/.project
 .project
-.classpath
