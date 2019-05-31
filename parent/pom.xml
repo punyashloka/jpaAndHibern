@@ -35,5 +35,7 @@
 	</build>
 	<modules>
 		<module>inheritance_default</module>
+		<module>SingleTableInheritance</module>
+		<module>Table_Per_Class</module>
 	</modules>
 </project>
