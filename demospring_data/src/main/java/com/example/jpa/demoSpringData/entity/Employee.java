@@ -1,14 +1,20 @@
 package com.example.jpa.demoSpringData.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "employee_id")
+    //@ApiModelProperty(hidden = true)
     private Long id;
 
     @Column(name = "first_name", nullable = false)
@@ -17,9 +23,26 @@ public class Employee {
     private String lastName;
     @Column(name = "email", nullable = false, unique = true)
     private String email;
-    @Column(name = "phone_number", nullable = false,unique = true)
-    @Size(min = 10, max = 10)
+    @Column(name = "phone_number", nullable = false)
     private BigInteger phoneNumber;
+    @Enumerated(EnumType.STRING)
+    private Status status;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "date_of_join")
+    @CreationTimestamp
+    private Date dateOfJoining;
+
+    @Column(name = "date_of_offer")
+    @CreationTimestamp
+    private LocalDate dateOfOffer;
+    @Column(name = "date_and_time_of_offer")
+    @CreationTimestamp
+    private LocalDateTime dateTimeOfOffer;
+    @UpdateTimestamp
+    private LocalDateTime dateTimeOfOfferUpdate;
+
+    @Version
+    private Integer version = 0;
 
     public Long getId() {
         return id;
@@ -61,6 +84,21 @@ public class Employee {
         this.phoneNumber = phoneNumber;
     }
 
+    public Employee() {
+
+    }
+
+    public Employee(Employee e) {
+        this.firstName = e.firstName;
+        this.lastName = e.lastName;
+        this.email = e.email;
+        this.phoneNumber = e.phoneNumber;
+        this.status = e.status;
+        this.dateOfJoining = e.dateOfJoining;
+        this.dateOfOffer = e.dateOfOffer;
+        this.dateTimeOfOffer = e.dateTimeOfOffer;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -70,5 +108,53 @@ public class Employee {
                 ", email='" + email + '\'' +
                 ", phoneNumber=" + phoneNumber +
                 '}';
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Date getDateOfJoining() {
+        return dateOfJoining;
+    }
+
+    public void setDateOfJoining(Date dateOfJoining) {
+        this.dateOfJoining = dateOfJoining;
+    }
+
+    public LocalDate getDateOfOffer() {
+        return dateOfOffer;
+    }
+
+    public void setDateOfOffer(LocalDate dateOfOffer) {
+        this.dateOfOffer = dateOfOffer;
+    }
+
+    public LocalDateTime getDateTimeOfOffer() {
+        return dateTimeOfOffer;
+    }
+
+    public void setDateTimeOfOffer(LocalDateTime dateTimeOfOffer) {
+        this.dateTimeOfOffer = dateTimeOfOffer;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    protected void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    public LocalDateTime getDateTimeOfOfferUpdate() {
+        return dateTimeOfOfferUpdate;
+    }
+
+    public void setDateTimeOfOfferUpdate(LocalDateTime dateTimeOfOfferUpdate) {
+        this.dateTimeOfOfferUpdate = dateTimeOfOfferUpdate;
     }
 }
