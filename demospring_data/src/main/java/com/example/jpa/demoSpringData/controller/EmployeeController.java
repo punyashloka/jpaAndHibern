@@ -65,5 +65,10 @@ public class EmployeeController
         List<Employee> lists = service.findByPageSize(page, size);
         return new ResponseEntity<List<Employee>>(lists, new HttpHeaders(), HttpStatus.OK);
     }
+    @GetMapping(value = "/countByLastName/{lastName}")
+    public ResponseEntity<Long> countByLastName(@PathVariable String lastName) {
+        long count = service.countByLastName(lastName);
 
+        return new ResponseEntity<Long>(count, new HttpHeaders(), HttpStatus.OK);
+    }
 }

@@ -91,4 +91,7 @@ public class ServiceImpl {
         Page<Employee> employeeList = repository.findAll(request);
         return employeeList.getContent();
     }
+    public Long  countByLastName(String lastName){
+        return repository.countByLastName(lastName);
+    }
 }
