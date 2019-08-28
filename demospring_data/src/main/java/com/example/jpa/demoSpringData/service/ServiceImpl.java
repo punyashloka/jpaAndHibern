@@ -1,6 +1,7 @@
 package com.example.jpa.demoSpringData.service;
 
 import com.example.jpa.demoSpringData.entity.Employee;
+import com.example.jpa.demoSpringData.repository.EmoloyeeSelectiveRepository;
 import com.example.jpa.demoSpringData.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +16,10 @@ import java.util.stream.IntStream;
 public class ServiceImpl {
     @Autowired
     private EmployeeRepository repository;
+
+    @Autowired
+    private EmoloyeeSelectiveRepository selectiveRepository;
+
     public void saveEmployee(Employee emp) {
         repository.save(emp);
     }
@@ -93,5 +98,13 @@ public class ServiceImpl {
     }
     public Long  countByLastName(String lastName){
         return repository.countByLastName(lastName);
+    }
+
+    public void saveEmployeeSelective(Employee emp) {
+        selectiveRepository.save(emp);
+    }
+
+    public Long  countByLastNameSelective(String lastName){
+        return 0L;//selectiveRepository.countByLastName(lastName); // method will not available
     }
 }
