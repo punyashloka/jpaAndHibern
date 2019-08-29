@@ -71,4 +71,40 @@ public class EmployeeController
 
         return new ResponseEntity<Long>(count, new HttpHeaders(), HttpStatus.OK);
     }
+
+    @GetMapping(value = "getByEmail/{email}")
+    public ResponseEntity<Employee> getByEmail(@PathVariable String email)
+            throws Exception {
+        Employee entity = service.getByEmail(email);
+
+        return new ResponseEntity<Employee>(entity, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "findByEmail/{email}")
+    public ResponseEntity<Employee> findByEmail(@PathVariable String email)
+            throws Exception {
+        Employee entity = service.findByEmail(email);
+
+        return new ResponseEntity<Employee>(entity, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "findOptionalByEmail/{email}")
+    public ResponseEntity<Employee> findOptionalByEmail(@PathVariable String email)
+            throws Exception {
+        Employee entity = service.findOptionalByEmail(email);
+        return new ResponseEntity<Employee>(entity, new HttpHeaders(), HttpStatus.OK);
+    }
+    @GetMapping(value = "findFirstNameByLastName/{email}")
+    public ResponseEntity<List<String>> findFirstNameByLastName(@PathVariable String email)
+            throws Exception {
+        List<String> entity = service.findFirstNameByLastName(email);
+        return new ResponseEntity<List<String>>(entity, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "findFirstNameByLastNameDTO/{email}")
+    public ResponseEntity<String> findFirstNameByLastNameDTO(@PathVariable String email)
+            throws Exception {
+        String entity = service.findFirstNameByLastNameDTO(email);
+        return new ResponseEntity<String>(entity, new HttpHeaders(), HttpStatus.OK);
+    }
 }

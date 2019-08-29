@@ -1,8 +1,9 @@
 package com.example.jpa.demoSpringData.service;
 
 import com.example.jpa.demoSpringData.entity.Employee;
-import com.example.jpa.demoSpringData.repository.EmoloyeeSelectiveRepository;
+import com.example.jpa.demoSpringData.entity.EmployeeDTO;
 import com.example.jpa.demoSpringData.repository.EmployeeRepository;
+import com.example.jpa.demoSpringData.repository.EmployeeView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Service
@@ -17,8 +19,8 @@ public class ServiceImpl {
     @Autowired
     private EmployeeRepository repository;
 
-    @Autowired
-    private EmoloyeeSelectiveRepository selectiveRepository;
+   /* @Autowired
+    private EmoloyeeSelectiveRepository selectiveRepository;*/
 
     public void saveEmployee(Employee emp) {
         repository.save(emp);
@@ -100,11 +102,34 @@ public class ServiceImpl {
         return repository.countByLastName(lastName);
     }
 
-    public void saveEmployeeSelective(Employee emp) {
+    /*public void saveEmployeeSelective(Employee emp) {
         selectiveRepository.save(emp);
-    }
+    }*/
 
     public Long  countByLastNameSelective(String lastName){
         return 0L;//selectiveRepository.countByLastName(lastName); // method will not available
+    }
+
+    public Employee getByEmail(String email) throws Exception {
+       return repository.getByEmail(email);
+    }
+
+    public Employee findByEmail(String email) throws Exception {
+        return repository.findByEmail(email);
+    }
+
+    public Employee findOptionalByEmail(String email) throws Exception {
+        return repository.findOptionalByEmail(email).get();
+    }
+    public List<String> findFirstNameByLastName(String email) throws Exception {
+        //https://www.baeldung.com/spring-data-jpa-projections
+        List<EmployeeView> views =  repository.findFirstNameByLastName(email);
+        return views.stream().map(EmployeeView ::getFirstName).collect(Collectors.toList());
+    }
+
+    public String findFirstNameByLastNameDTO(String email) throws Exception {
+        //https://www.baeldung.com/spring-data-jpa-projections
+        EmployeeDTO dto =  repository.findByLastName(email);
+        return dto.getFirstName();
     }
 }
